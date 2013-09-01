@@ -125,9 +125,11 @@ def resize_thumbnails(pelican):
 
     sizes = pelican.settings.get('THUMBNAIL_SIZES', DEFAULT_THUMBNAIL_SIZES)
     resizers = dict((k, _resizer(k, v)) for k,v in sizes.items())
-    logger.debug("Thumbnailer Started")
+    logger.debug("Thumbnailer Started on %s", (in_path,))
     for dirpath, _, filenames in os.walk(in_path):
+        logger.debug('Thumbnailer descending into %s', (dirpath,))
         for filename in filenames:
+            logger.debug("Thumbnailer considering %s", (filename,))
             for name, resizer in resizers.items():
                 in_filename = path.join(dirpath, filename)
                 logger.debug("Processing thumbnail {0}=>{1}".format(filename, name))
